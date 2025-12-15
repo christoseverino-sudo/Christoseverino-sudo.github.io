@@ -1,611 +1,499 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Dulce Tentación — Cheesecakes</title>
-  <meta name="description" content="Dulce Tentación — Cheesecakes artesanales. Menú, fotos y contacto." />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <style>
-    /* ========== RESET ========== */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html,body { height:100%; }
-    img { display:block; max-width:100%; height:auto; }
-    a { color: inherit; text-decoration: none; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HANDEE SRL | Seguridad & Tecnología</title>
 
-    /* ========== THEME ========== */
-    :root{
-      --bg:#fffaf7;
-      --card:#ffffff;
-      --muted:#6b6b6b;
-      --accent:#f6b2b2; /* soft pink */
-      --accent-2:#ffd6a5; /* soft peach */
-      --dark:#222;
-      --glass: rgba(255,255,255,0.7);
-      --radius:16px;
-      --shadow: 0 8px 24px rgba(15,15,15,0.08);
-      font-size:16px;
-      color-scheme: light;
-    }
-    body{
-      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: linear-gradient(180deg, #fffaf7 0%, #fff4ee 100%);
-      color:var(--dark);
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      line-height:1.45;
-    }
+<!-- ========================= ESTILOS ========================= -->
+<style>
 
-    /* ========== LAYOUT ========== */
-    .container{
-      width: min(1200px, 94%);
-      margin: 0 auto;
-      padding: 32px 0;
-    }
+/* =============================================================
+   RESET GENERAL
+   ============================================================= */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
 
-    /* ========== NAV ========== */
+/* =============================================================
+   VARIABLES DE COLOR
+   ============================================================= */
+:root{
+    --principal:#007a84;
+    --secundario:#0097a7;
+    --oscuro:#0e2b33;
+    --claro:#f4f7fa;
+    --gris:#555;
+}
+
+/* =============================================================
+   BODY
+   ============================================================= */
+body{
+    background:var(--claro);
+    color:var(--oscuro);
+    line-height:1.6;
+}
+
+/* =============================================================
+   PROGRESS BAR
+   ============================================================= */
+#progress-bar{
+    position:fixed;
+    top:0;
+    left:0;
+    height:4px;
+    width:0%;
+    background:var(--secundario);
+    z-index:5000;
+}
+
+/* =============================================================
+   NAVBAR
+   ============================================================= */
+nav{
+    position:fixed;
+    top:0;
+    width:100%;
+    padding:16px 60px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:rgba(255,255,255,.9);
+    backdrop-filter:blur(10px);
+    box-shadow:0 2px 12px rgba(0,0,0,.08);
+    z-index:3000;
+}
+
+/* LOGO */
+.logo img{
+    width:120px;
+    animation:logoFloat 3s ease-in-out infinite;
+}
+@keyframes logoFloat{
+    0%{transform:translateY(0)}
+    50%{transform:translateY(-6px)}
+    100%{transform:translateY(0)}
+}
+
+/* MENU */
+nav ul{
+    display:flex;
+    gap:35px;
+    list-style:none;
+}
+nav ul li a{
+    text-decoration:none;
+    font-weight:600;
+    color:var(--oscuro);
+}
+nav ul li a:hover{
+    color:var(--secundario);
+}
+
+/* DROPDOWN */
+.dropdown{
+    position:relative;
+}
+.dropdown-menu{
+    position:absolute;
+    top:35px;
+    left:0;
+    background:white;
+    border-radius:12px;
+    min-width:230px;
+    display:none;
+    flex-direction:column;
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+}
+.dropdown-menu a{
+    padding:14px 18px;
+}
+.dropdown-menu a:hover{
+    background:#e0f7fa;
+}
+.dropdown:hover .dropdown-menu{
+    display:flex;
+}
+
+/* MOBILE */
+.menu-toggle{
+    display:none;
+    font-size:30px;
+    cursor:pointer;
+}
+
+/* =============================================================
+   HEADER + SLIDER
+   ============================================================= */
+header{
+    margin-top:90px;
+    min-height:600px;
+    display:flex;
+    align-items:center;
+    padding:60px;
+    background:linear-gradient(80deg,#eaf3f5,#f6ebe3);
+}
+
+/* TEXTO */
+.header-text{
+    width:45%;
+}
+.header-text h1{
+    font-size:54px;
+    color:var(--principal);
+    margin-bottom:20px;
+}
+.header-text p{
+    font-size:18px;
+    color:var(--gris);
+}
+
+/* SLIDER */
+.slider-container{
+    width:55%;
+    position:relative;
+    overflow:hidden;
+    border-radius:16px;
+}
+.slider{
+    display:flex;
+    transition:transform .7s ease;
+}
+.slide{
+    min-width:100%;
+    height:380px;
+    background-size:cover;
+    background-position:center;
+    display:flex;
+    align-items:flex-end;
+    padding:25px;
+    color:white;
+    text-shadow:0 3px 15px rgba(0,0,0,.9);
+}
+.slide-info{
+    background:rgba(0,0,0,.45);
+    padding:15px 20px;
+    border-radius:10px;
+}
+.slide-info h3{
+    font-size:24px;
+}
+.slide-info p{
+    font-size:16px;
+}
+
+/* CONTROLES */
+.slider-btn{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    background:rgba(0,0,0,.5);
+    color:white;
+    border:none;
+    font-size:30px;
+    padding:10px 16px;
+    cursor:pointer;
+    border-radius:50%;
+}
+.prev{left:10px}
+.next{right:10px}
+
+/* DOTS */
+.dots{
+    position:absolute;
+    bottom:12px;
+    width:100%;
+    text-align:center;
+}
+.dot{
+    width:10px;
+    height:10px;
+    background:#ccc;
+    border-radius:50%;
+    display:inline-block;
+    margin:0 4px;
+    cursor:pointer;
+}
+.dot.active{
+    background:var(--secundario);
+}
+
+/* =============================================================
+   SECCIONES GENERALES
+   ============================================================= */
+section{
+    padding:80px 70px;
+}
+section h2{
+    font-size:38px;
+    color:var(--principal);
+    text-align:center;
+    margin-bottom:30px;
+}
+section p{
+    max-width:900px;
+    margin:0 auto;
+    text-align:center;
+    color:var(--gris);
+    font-size:18px;
+}
+
+/* =============================================================
+   SERVICIOS EXTENSOS
+   ============================================================= */
+.servicios-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:30px;
+    margin-top:50px;
+}
+.servicio{
+    background:white;
+    padding:25px;
+    border-radius:16px;
+    box-shadow:0 10px 30px rgba(0,0,0,.1);
+    transition:.3s;
+}
+.servicio:hover{
+    transform:translateY(-8px);
+}
+.servicio h3{
+    color:var(--principal);
+    margin-bottom:10px;
+}
+
+/* =============================================================
+   FOOTER
+   ============================================================= */
+footer{
+    background:#0e2b33;
+    color:white;
+    padding:60px;
+    text-align:center;
+}
+footer p{
+    color:#ccc;
+}
+
+/* =============================================================
+   RESPONSIVE
+   ============================================================= */
+@media(max-width:900px){
+    nav{padding:16px 20px}
+    .menu-toggle{display:block}
+    nav ul{
+        position:absolute;
+        top:70px;
+        left:0;
+        width:100%;
+        background:white;
+        flex-direction:column;
+        display:none;
+    }
+    nav ul.show{display:flex}
+
     header{
-      position: sticky;
-      top: 12px;
-      z-index: 40;
-      backdrop-filter: blur(6px);
-      margin-bottom: 18px;
+        flex-direction:column;
+        text-align:center;
     }
-    .nav{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:16px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.72), rgba(255,255,255,0.55));
-      padding: 12px;
-      border-radius: 18px;
-      box-shadow: var(--shadow);
+    .header-text,.slider-container{
+        width:100%;
     }
-    .brand{
-      display:flex;
-      gap:12px;
-      align-items:center;
+    .servicios-grid{
+        grid-template-columns:1fr;
     }
-    .logo {
-      width:56px; height:56px; border-radius:12px;
-      background: conic-gradient(from 200deg, var(--accent), var(--accent-2));
-      display:grid; place-items:center; color:white;
-      font-weight:800; font-family: "Playfair Display", serif;
-      box-shadow: 0 6px 18px rgba(246,178,178,0.25);
-    }
-    .brand h1{ font-family: "Playfair Display", serif; font-size:18px; }
-    .brand p{ font-size:12px; color:var(--muted); margin-top: -2px; }
+}
 
-    /* desktop nav links */
-    nav .links{
-      display:flex; gap:18px; align-items:center;
-    }
-    .links a{ font-weight:600; padding:6px 10px; border-radius:12px; color:var(--dark); }
-    .links a.cta{
-      background: linear-gradient(90deg,var(--accent),var(--accent-2));
-      color:#7a2b2b; box-shadow: 0 6px 18px rgba(255,182,150,0.12);
-    }
-
-    /* hamburger (mobile) */
-    .menu-toggle { display:none; }
-    .hamburger{
-      display:none;
-      width:44px; height:44px; border-radius:10px;
-      background:var(--card); box-shadow:var(--shadow);
-      align-items:center; justify-content:center;
-    }
-
-    /* ========== HERO ========== */
-    .hero{
-      display:grid;
-      grid-template-columns: 1fr 420px;
-      gap:28px;
-      align-items:center;
-      margin: 18px 0 28px;
-    }
-    .hero-card{
-      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.75));
-      border-radius: 20px;
-      padding:28px;
-      box-shadow: var(--shadow);
-    }
-    .hero h2{
-      font-family: "Playfair Display", serif;
-      font-size:32px; line-height:1.02; margin-bottom:8px;
-    }
-    .hero p.lead{ color:var(--muted); margin-bottom:18px; }
-    .cta-row{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
-    .btn{
-      padding:10px 16px; border-radius:12px; font-weight:700; cursor:pointer;
-      border:none; display:inline-block;
-    }
-    .btn-primary{
-      background: linear-gradient(90deg,var(--accent),var(--accent-2));
-      color:#7a2b2b;
-      box-shadow: 0 10px 30px rgba(246,178,178,0.10);
-    }
-    .btn-soft{
-      background:transparent; color:var(--dark); border:1px solid rgba(34,34,34,0.06);
-    }
-
-    .hero-image{
-      border-radius:16px;
-      overflow:hidden;
-      box-shadow: 0 18px 40px rgba(15,15,15,0.08);
-      transform: translateY(0);
-      transition: transform .35s ease;
-    }
-    .hero-image:hover{ transform: translateY(-6px); }
-
-    /* ========== PRODUCTS ========== */
-    .section-title{
-      display:flex; justify-content:space-between; align-items:end; gap:12px; margin: 8px 0 14px;
-    }
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:18px;
-    }
-    .card{
-      background:var(--card);
-      border-radius:14px;
-      padding:14px;
-      box-shadow: var(--shadow);
-      transition: transform .25s ease, box-shadow .25s ease;
-    }
-    .card:hover{ transform: translateY(-6px); }
-    .card .meta{ display:flex; gap:12px; align-items:center; margin-bottom:8px; }
-    .tag{ font-size:12px; padding:6px 8px; border-radius:10px; background:#fff7f7; color:#b54747; font-weight:700; }
-    .product-name{ font-weight:700; font-size:16px; }
-    .product-desc{ font-size:13px; color:var(--muted); margin:8px 0 12px; min-height:36px; }
-    .price-row{ display:flex; justify-content:space-between; align-items:center; gap:8px; }
-    .price{ font-weight:800; color:#7a2b2b; }
-    .add-btn{
-      display:inline-block; padding:8px 12px; border-radius:10px; background:linear-gradient(90deg,var(--accent),var(--accent-2));
-      font-weight:700; cursor:pointer;
-      border:none;
-    }
-
-    /* bump animation on add */
-    .bump {
-      animation: bump .45s ease;
-    }
-    @keyframes bump {
-      0% { transform: scale(1); }
-      30% { transform: scale(1.08); }
-      60% { transform: scale(0.98); }
-      100% { transform: scale(1); }
-    }
-
-    /* ========== CART (improved, functional) ========== */
-    .cart-panel{
-      position:fixed;
-      right:20px;
-      bottom:20px;
-      width:360px;
-      max-height:80vh;
-      overflow:auto;
-      background: linear-gradient(180deg, #ffffff, #fffaf9);
-      border-radius:16px;
-      padding:14px;
-      box-shadow: 0 20px 50px rgba(12,12,12,0.12);
-      transition: transform .28s cubic-bezier(.2,.9,.3,1), opacity .2s;
-      z-index: 60;
-    }
-    .cart-header{ display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:12px; }
-    .cart-items{ display:flex; flex-direction:column; gap:10px; margin-bottom:8px; }
-    .cart-item{ display:flex; gap:10px; align-items:center; padding:8px; border-radius:12px; background: rgba(250,250,250,0.9); }
-    .cart-item img{ width:58px; height:58px; object-fit:cover; border-radius:10px; }
-    .cart-item .ci-text{ flex:1; }
-    .cart-item .ci-text small{ display:block; color:var(--muted); font-size:13px; }
-    .cart-item .qty{ font-weight:700; color:#7a2b2b; margin-left:6px; }
-    .cart-empty{ color:var(--muted); padding:18px 10px; text-align:center; }
-
-    .cart-footer { display:flex; justify-content:space-between; align-items:center; gap:8px; margin-top:10px; }
-    .cart-total { font-weight:900; color:#7a2b2b; }
-
-    .cart-badge{
-      display:inline-grid; place-items:center;
-      min-width:22px; height:22px; padding:4px 6px;
-      border-radius:999px; font-weight:800; font-size:12px;
-      background: linear-gradient(90deg,var(--accent),var(--accent-2));
-      color:#7a2b2b;
-    }
-
-    .remove-btn{
-      background:transparent;
-      border:none;
-      color:#c44b5b;
-      cursor:pointer;
-      font-weight:800;
-      font-size:16px;
-    }
-
-    /* ========== GALLERY + INFO ========== */
-    .two-col{ display:grid; grid-template-columns: 1fr 360px; gap:18px; margin-top:22px; }
-    .gallery{ display:grid; grid-template-columns: repeat(2, 1fr); gap:10px; }
-    .info-card{ background:var(--card); padding:16px; border-radius:12px; box-shadow: var(--shadow); }
-    .muted{ color:var(--muted); }
-
-    /* ========== FOOTER ========== */
-    footer{ margin-top:28px; color:var(--muted); font-size:14px; text-align:center; padding:18px 0; }
-
-    /* ========== RESPONSIVE ========== */
-    @media (max-width:1000px){
-      .hero{ grid-template-columns: 1fr; }
-      .grid{ grid-template-columns: repeat(2, 1fr); }
-      .two-col{ grid-template-columns: 1fr; }
-      .container{ padding: 18px 6px; }
-      .cart-panel{ width: 92%; right:4%; left:4%; bottom:12px; }
-    }
-    @media (max-width:680px){
-      .nav .links{ display:none; }
-      .hamburger{ display:flex; }
-      .grid{ grid-template-columns: 1fr; }
-    }
-
-    /* subtle animations */
-    .card, .hero-card, .info-card, .cart-panel { transition: transform .24s ease, box-shadow .24s ease; }
-  </style>
+</style>
 </head>
+
 <body>
-  <header class="container">
-    <div class="nav">
-      <div class="brand">
-        <div class="logo" aria-hidden="true">DT</div>
-        <div>
-          <h1>Dulce Tentación</h1>
-          <p>Cheesecakes artesanales • Envío local</p>
-        </div>
-      </div>
 
-      <nav>
-        <div class="links" role="navigation" aria-label="Principal">
-          <a href="#menu">Menú</a>
-          <a href="#galeria">Galería</a>
-          <a href="#ubicacion">Ubicación</a>
-          <a href="Registrate.html">Registrate</a>
-          <a class="cta" href="#menu">Ordenar</a>
-        </div>
-      </nav>
+<div id="progress-bar"></div>
+
+<!-- ========================= NAV ========================= -->
+<nav>
+    <div class="logo">
+        <img src="Imagenes/Handee - Foto de perfil - 1080x1080 px.jpg">
     </div>
-  </header>
 
-  <main class="container">
-    <!-- HERO -->
-    <section class="hero">
-      <div class="hero-card">
-        <h2>Los mejores cheesecakes artesanales<br><span style="font-weight:500; color:var(--muted); font-size:16px;">de la ciudad</span></h2>
-        <p class="lead">Recién horneados, con ingredientes locales y un toque de amor. Descubre sabores clásicos y ediciones limitadas cada semana.</p>
-        <div class="cta-row" aria-hidden="false">
-          <a class="btn btn-primary" href="#menu">Ver menú</a>
-          <a class="btn btn-soft" href="#galeria">Ver galería</a>
+    <div class="menu-toggle" id="menuToggle">☰</div>
+
+    <ul id="menu">
+        <li><a href="#">Inicio</a></li>
+        <li class="dropdown">
+            <a href="#">Servicios ▾</a>
+            <ul class="dropdown-menu">
+                <li><a href="Inicio.html">inicio</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="Quienes somos.html">quienes somos</a></li>
+                <li><a href="#servicios">Instalación</a></li>
+                <li><a href="#servicios">Reparación</a></li>
+                <li><a href="#servicios">Mantenimiento</a></li>
+                <li><a href="#servicios">Asesoría</a></li>
+            </ul>
+        </li>
+        <li><a href="#">Contacto</a></li>
+    </ul>
+</nav>
+
+<!-- ========================= HEADER ========================= -->
+<header>
+
+<div class="header-text">
+    <h1 id="slide-title">Instalación Profesional</h1>
+    <p id="slide-text">
+        Soluciones avanzadas en sistemas de videovigilancia y seguridad electrónica.
+    </p>
+</div>
+
+<div class="slider-container">
+    <div class="slider" id="slider">
+
+        <!-- SLIDE 1 -->
+        <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1553877522-43269d4ea984')">
+            <div class="slide-info">
+                <h3>Instalación Profesional</h3>
+                <p>Montaje técnico certificado.</p>
+            </div>
         </div>
 
-        <div style="margin-top:18px;">
-          <ul style="display:flex; gap:10px; list-style:none; font-size:14px; color:var(--muted);">
-            <li>📦 Envío 30-50 min</li>
-            <li>🍰 Porciones individuales y enteros</li>
-            <li>🎁 Empaque premium</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="hero-image" aria-hidden="true">
-        <img src="imagenes/dulce sentatcion.png" alt="Cheesecake grande con frambuesas">
-      </div>
-    </section>
-
-    <!-- MENU / PRODUCTS -->
-    <section id="menu" aria-labelledby="menu-title">
-      <div class="section-title">
-        <div>
-          <h3 id="menu-title" style="font-family:Playfair Display, serif; font-size:20px;">Menú destacado</h3>
-          <p class="muted" style="font-size:14px;">Cheesecakes hechos a mano — elige tu favorito</p>
-        </div>
-        <div style="display:flex; align-items:center; gap:10px;">
-          <div id="cartBadge" class="cart-badge" title="Items en carrito">0</div>
-        </div>
-      </div>
-
-      <div class="grid" role="list">
-        <!-- Product 1 -->
-        <article class="card" role="listitem" aria-labelledby="p1-name"
-                 data-id="1" data-price="450" data-name="Cheesecake Clásico" data-img="imagenes/chocolate.jpeg">
-          <div class="meta">
-            <div class="tag">Más pedido</div>
-            <div style="margin-left:auto; font-size:12px; color:var(--muted);">Porción • 1-2</div>
-          </div>
-          <img src="imagenes/chocolate.jpeg" alt="Cheesecake clásico" style="border-radius:12px; margin-bottom:10px;">
-          <div class="product-name" id="p1-name">Cheesecake Clásico</div>
-          <div class="product-desc">Base de galleta crujiente, crema de queso suave y cobertura ligera de salsa de fresa con un toque de chocolate.</div>
-          <div class="price-row">
-            <div class="price">RD$ 450</div>
-            <button class="add-btn" data-id="1" aria-label="Agregar Cheesecake Clásico">Agregar</button>
-          </div>
-        </article>
-
-        <!-- Product 2 -->
-        <article class="card" role="listitem" aria-labelledby="p2-name"
-                 data-id="2" data-price="1250" data-name="Cheesecake de Oreo" data-img="imagenes/Cheesecake de Oreo.jpg">
-          <div class="meta">
-            <div style="font-size:12px; color:var(--muted);">Especial</div>
-            <div style="margin-left:auto; font-size:12px; color:var(--muted);">Entero • 8 porciones</div>
-          </div>
-          <img src="imagenes/Cheesecake de Oreo.jpg" alt="Cheesecake de Oreo" style="border-radius:12px; margin-bottom:10px;">
-          <div class="product-name" id="p2-name">Cheesecake de Oreo</div>
-          <div class="product-desc">Rica ganache de chocolate Oreo encima de nuestro relleno cremoso. Para chocoholics.</div>
-          <div class="price-row">
-            <div class="price">RD$ 1,250</div>
-            <button class="add-btn" data-id="2" aria-label="Agregar Cheesecake de Oreo">Agregar</button>
-          </div>
-        </article>
-
-        <!-- Product 3 -->
-        <article class="card" role="listitem" aria-labelledby="p3-name"
-                 data-id="3" data-price="480" data-name="Cheesecake de Fresa y Coco" data-img="imagenes/Fresa y coco.webp">
-          <div class="meta">
-            <div style="font-size:12px; color:var(--muted);">Nuevo</div>
-            <div style="margin-left:auto; font-size:12px; color:var(--muted);">Porción</div>
-          </div>
-          <img src="imagenes/Fresa y coco.webp" alt="Cheesecake de Fresa y Coco" style="border-radius:12px; margin-bottom:10px;">
-          <div class="product-name" id="p3-name">Cheesecake de Fresa y Coco</div>
-          <div class="product-desc">Acidulado y ligero, con capa de mermelada de fresa por encima.</div>
-          <div class="price-row">
-            <div class="price">RD$ 480</div>
-            <button class="add-btn" data-id="3" aria-label="Agregar Cheesecake de Fresa y Coco">Agregar</button>
-          </div>
-        </article>
-
-        <!-- Product 4 -->
-        <article class="card" role="listitem" aria-labelledby="p4-name"
-                 data-id="4" data-price="520" data-name="Cheesecake Vegano (Coco)" data-img="imagenes/pastel de coco.jpg">
-          <div class="meta">
-            <div style="font-size:12px; color:var(--muted);">Vegano</div>
-            <div style="margin-left:auto; font-size:12px; color:var(--muted);">Porción</div>
-          </div>
-          <img src="imagenes/pastel de coco.jpg" alt="Cheesecake vegano" style="border-radius:12px; margin-bottom:10px;">
-          <div class="product-name" id="p4-name">Cheesecake Vegano (Coco)</div>
-          <div class="product-desc">Hecho con crema de coco, base de almendras y sin lácteos.</div>
-          <div class="price-row">
-            <div class="price">RD$ 520</div>
-            <button class="add-btn" data-id="4" aria-label="Agregar Cheesecake Vegano">Agregar</button>
-          </div>
-        </article>
-
-        <!-- Product 5 -->
-        <article class="card" role="listitem" aria-labelledby="p5-name"
-                 data-id="5" data-price="500" data-name="Cheesecake Cielo de fresa y chocolate" data-img="imagenes/Cielo de Fresa y Chocolate.jpg">
-          <div class="meta">
-            <div style="font-size:12px; color:var(--muted);">Edición limitada</div>
-            <div style="margin-left:auto; font-size:12px; color:var(--muted);">Porción</div>
-          </div>
-          <img src="imagenes/Cielo de Fresa y Chocolate.jpg" alt="Cheesecake Cielo de fresa y chocolate" style="border-radius:12px; margin-bottom:10px;">
-          <div class="product-name" id="p5-name">Cheesecake Cielo de fresa y chocolate</div>
-          <div class="product-desc">Equilibrio perfecto entre dulce y salado con avellanas tostadas.</div>
-          <div class="price-row">
-            <div class="price">RD$ 500</div>
-            <button class="add-btn" data-id="5" aria-label="Agregar Cheesecake Cielo de fresa y chocolate">Agregar</button>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- CART PANEL (funcional) -->
-    <aside class="cart-panel" aria-label="Carrito de compras" id="cartPanel">
-      <div class="cart-header">
-        <div>
-          <strong>Tu carrito</strong>
-          <div style="font-size:13px; color:var(--muted);">Selecciona los cheesecake que quieras</div>
-        </div>
-        <div style="display:flex; gap:8px; align-items:center;">
-          <span id="cartBadgeSmall" class="cart-badge">0</span>
-        </div>
-      </div>
-
-      <div class="cart-items" role="list" id="cartItems">
-        <div class="cart-empty">Agrega productos al carrito usando el botón "Agregar".</div>
-      </div>
-
-      <div class="cart-footer">
-        <div style="color:var(--muted); font-size:14px;">Total estimado</div>
-        <div id="cartTotal" style="font-weight:900; color:#7a2b2b">RD$ 0</div>
-      </div>
-
-      <div style="margin-top:12px; display:flex; gap:8px;">
-        <a class="btn btn-primary" href="#ubicacion" style="flex:1; text-align:center;">Finalizar</a>
-        <a class="btn btn-soft" href="#menu" style="flex:1; text-align:center;">Seguir comprando</a>
-      </div>
-    </aside>
-
-    <!-- GALLERY + INFO -->
-    <section class="two-col" id="galeria" aria-labelledby="gal-title">
-      <div>
-        <h3 id="gal-title" style="font-family:Playfair Display, serif; font-size:18px;">Galería</h3>
-        <p class="muted" style="margin-bottom:12px;">Algunas fotos de nuestras creaciones recientes</p>
-        <div class="gallery">
-          <img src="imagenes/miel y tekila.jpg" alt="galería 1" style="border-radius:12px;">
-          <img src="imagenes/Maracuya.jpg" alt="galería 2" style="border-radius:12px;">
-          <img src="imagenes/dulce de leche.jpeg" alt="galería 3" style="border-radius:12px;">
-          <img src="imagenes/miel y tekila.jpg" alt="galería 4" style="border-radius:12px;">
+        <!-- SLIDE 2 -->
+        <div class="slide" style="background-image:url('https://datamercantil.com/wp-content/uploads/2020/07/Cableado-Estructurado.jpg')">
+            <div class="slide-info">
+                <h3>Cableado Estructurado</h3>
+                <p>Infraestructura confiable.</p>
+            </div>
         </div>
 
-        <div style="margin-top:18px;">
-          <h4 style="font-size:16px; margin-bottom:8px;">Sobre nosotros</h4>
-          <p class="muted">Somos un pequeño obrador familiar que prioriza ingredientes frescos, recetas probadas y empaques sostenibles. Hacemos pedidos especiales y pasteles por encargo.</p>
-        </div>
-      </div>
-
-      <aside class="info-card" id="ubicacion" aria-labelledby="ubicacion-title">
-        <h4 id="ubicacion-title" style="font-size:16px; margin-bottom:8px;">Ubicación & Contacto</h4>
-        <p class="muted" style="margin-bottom:8px;">Salvador Beato, Santo Domingo, RD</p>
-        <div style="border-radius:12px; overflow:hidden; margin-bottom:8px;">
-          <iframe width="100%" height="180" style="border:0" loading="lazy" allowfullscreen
-    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3811.1234567890123!2d-70.529!3d19.230!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8eb1c123456789ab%3A0xabcdef1234567890!2sLos%20Pomos%2C%20La%20Vega%2C%20Rep.%20Dom.!5e0!3m2!1ses!2sdo!4v169xxxxxxx">
-</iframe>
-
+        <!-- SLIDE 3 -->
+        <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1518770660439-4636190af475')">
+            <div class="slide-info">
+                <h3>Videovigilancia</h3>
+                <p>Control total en tiempo real.</p>
+            </div>
         </div>
 
-        <p><strong>Tel:</strong> +1 809 555 1234</p>
-        <p style="margin-bottom:12px;"><strong>Email:</strong> pedidos@dulcetentacion.do</p>
-
-        <div style="display:flex; gap:8px; margin-top:8px;">
-          <a class="btn btn-soft" href="#">Instagram</a>
-          <a class="btn btn-soft" href="#">WhatsApp</a>
+        <!-- SLIDE 4 -->
+        <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1581092334511-20c7a5d17a35')">
+            <div class="slide-info">
+                <h3>Monitoreo Remoto</h3>
+                <p>Acceso desde cualquier lugar.</p>
+            </div>
         </div>
-      </aside>
-    </section>
 
-    <footer>
-      <div class="container" style="padding:6px 0;">
-        © <strong>Dulce Tentación</strong> — Hecho con ♥ · Política de privacidad · Términos
-      </div>
-    </footer>
-    
-  </main>
+        <!-- SLIDE 5 -->
+        <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1563986768609-322da13575f3')">
+            <div class="slide-info">
+                <h3>Mantenimiento</h3>
+                <p>Soporte preventivo y correctivo.</p>
+            </div>
+        </div>
 
-  <!-- ========== JS: carrito funcional ========== -->
-  <script>
-    (function(){
-      // Load existing cart from localStorage
-      const storageKey = 'dt_cart_v1';
-      let cart = JSON.parse(localStorage.getItem(storageKey) || '[]');
+        <!-- SLIDE 6 -->
+        <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1591696205602-2f950c417cb9')">
+            <div class="slide-info">
+                <h3>Asesoría Técnica</h3>
+                <p>Soluciones a tu medida.</p>
+            </div>
+        </div>
 
-      // Helpers
-      const $$ = (sel, ctx=document) => Array.from(ctx.querySelectorAll(sel));
-      const $ = (sel, ctx=document) => ctx.querySelector(sel);
+    </div>
 
-      const cartItemsEl = document.getElementById('cartItems');
-      const cartTotalEl = document.getElementById('cartTotal');
-      const cartBadge = document.getElementById('cartBadge');
-      const cartBadgeSmall = document.getElementById('cartBadgeSmall');
-      const addButtons = $$('.add-btn');
+    <button class="slider-btn prev" onclick="prevSlide()">‹</button>
+    <button class="slider-btn next" onclick="nextSlide()">›</button>
+    <div class="dots" id="dots"></div>
+</div>
 
-      // Build a product map by reading article.card data attributes
-      const productEls = $$('.card');
-      const products = {};
-      productEls.forEach(el=>{
-        const id = el.dataset.id;
-        const price = Number(el.dataset.price);
-        const name = el.dataset.name;
-        const img = el.dataset.img;
-        products[id] = { id, price, name, img };
-      });
+</header>
 
-      function saveCart(){
-        localStorage.setItem(storageKey, JSON.stringify(cart));
-      }
+<!-- ========================= SERVICIOS ========================= -->
+<section id="servicios">
+<h2>Nuestros Servicios</h2>
+<p>
+Ofrecemos soluciones completas en seguridad electrónica, instalación, mantenimiento,
+diagnóstico, configuración remota y soporte especializado para empresas y hogares.
+</p>
 
-      function formatMoney(n){
-        return 'RD$ ' + Number(n).toLocaleString('en-US', { maximumFractionDigits: 0 });
-      }
+<div class="servicios-grid">
+    <div class="servicio"><h3>Instalación</h3><p>Montaje de cámaras IP, análogas e híbridas.</p></div>
+    <div class="servicio"><h3>Reparación</h3><p>Diagnóstico y corrección de fallas.</p></div>
+    <div class="servicio"><h3>Mantenimiento</h3><p>Planes preventivos y correctivos.</p></div>
+</div>
+</section>
 
-      function updateBadge(){
-        const count = cart.reduce((s,i)=>s+i.quantity,0);
-        cartBadge.textContent = count;
-        cartBadgeSmall.textContent = count;
-      }
+<footer>
+<p>© 2025 HANDEE SRL · Seguridad & Tecnología</p>
+</footer>
 
-      function renderCart(){
-        cartItemsEl.innerHTML = '';
-        if(cart.length === 0){
-          cartItemsEl.innerHTML = '<div class="cart-empty">Tu carrito está vacío 🍰</div>';
-        } else {
-          cart.forEach(item=>{
-            const row = document.createElement('div');
-            row.className = 'cart-item';
-            row.innerHTML = `
-              <img src="${item.img}" alt="${escapeHtml(item.name)}">
-              <div class="ci-text">
-                <strong>${escapeHtml(item.name)}</strong>
-                <small>${formatMoney(item.price)} x ${item.quantity} <span class="qty">(${item.quantity})</span></small>
-              </div>
-              <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end;">
-                <div style="font-weight:800;color:#7a2b2b;">${formatMoney(item.price * item.quantity)}</div>
-                <div style="display:flex;gap:6px;">
-                  <button class="remove-btn" data-id="${item.id}" title="Eliminar">✖</button>
-                </div>
-              </div>
-            `;
-            cartItemsEl.appendChild(row);
-          });
-        }
+<!-- ========================= JS ========================= -->
+<script>
 
-        const total = cart.reduce((s,i)=>s + i.price * i.quantity, 0);
-        cartTotalEl.textContent = formatMoney(total);
-        updateBadge();
-        saveCart();
+/* PROGRESS BAR */
+window.addEventListener("scroll",()=>{
+    let h=document.documentElement.scrollHeight-window.innerHeight;
+    let p=(document.documentElement.scrollTop/h)*100;
+    document.getElementById("progress-bar").style.width=p+"%";
+});
 
-        // attach remove listeners
-        $$('.remove-btn', cartItemsEl).forEach(btn=>{
-          btn.addEventListener('click', (e)=>{
-            const id = btn.dataset.id;
-            removeFromCart(id);
-          });
-        });
-      }
+/* MENU MOBILE */
+menuToggle.onclick=()=>menu.classList.toggle("show");
 
-      function addToCart(id){
-        const prod = products[id];
-        if(!prod) return;
-        const existing = cart.find(i=>i.id === id);
-        if(existing){
-          existing.quantity++;
-        } else {
-          cart.push({
-            id: prod.id,
-            name: prod.name,
-            price: prod.price,
-            img: prod.img,
-            quantity: 1
-          });
-        }
-        renderCart();
-      }
+/* SLIDER */
+const slider=document.getElementById("slider");
+const slides=document.querySelectorAll(".slide");
+const dotsContainer=document.getElementById("dots");
 
-      function removeFromCart(id){
-        cart = cart.filter(i => i.id !== id);
-        renderCart();
-      }
+const titles=[
+    "Instalación Profesional",
+    "Cableado Estructurado",
+    "Videovigilancia",
+    "Monitoreo Remoto",
+    "Mantenimiento",
+    "Asesoría Técnica"
+];
 
-      // animate button (bump) and panel highlight
-      function animateAdd(button){
-        button.classList.remove('bump');
-        // trigger reflow
-        void button.offsetWidth;
-        button.classList.add('bump');
-        // small highlight on cart panel
-        const panel = document.getElementById('cartPanel');
-        panel.style.boxShadow = '0 28px 60px rgba(196,86,86,0.12)';
-        setTimeout(()=> panel.style.boxShadow = '0 20px 50px rgba(12,12,12,0.12)', 300);
-      }
+const texts=[
+    "Instalación certificada y segura.",
+    "Infraestructura organizada y eficiente.",
+    "Control visual en tiempo real.",
+    "Acceso remoto desde cualquier lugar.",
+    "Soporte técnico continuo.",
+    "Soluciones personalizadas."
+];
 
-      // escape HTML for safety when inserting text
-      function escapeHtml(str){
-        return String(str).replace(/[&<>"']/g, function(m){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m];});
-      }
+let index=0;
 
-      // wire add buttons
-      addButtons.forEach(btn=>{
-        btn.addEventListener('click', (e)=>{
-          const id = btn.dataset.id;
-          addToCart(id);
-          animateAdd(btn);
-        });
-      });
+/* DOTS */
+slides.forEach((_,i)=>{
+    const d=document.createElement("span");
+    d.className="dot";
+    d.onclick=()=>goToSlide(i);
+    dotsContainer.appendChild(d);
+});
+const dots=document.querySelectorAll(".dot");
 
-      // initial render
-      renderCart();
+function updateSlider(){
+    slider.style.transform=`translateX(-${index*100}%)`;
+    dots.forEach(d=>d.classList.remove("active"));
+    dots[index].classList.add("active");
 
-      // expose functions for console debugging (optional)
-      window._dt_cart = {
-        getCart: ()=>cart,
-        addToCart,
-        removeFromCart,
-        clear: ()=>{ cart=[]; renderCart(); }
-      };
-    })();
-  </script>
+    document.getElementById("slide-title").textContent=titles[index];
+    document.getElementById("slide-text").textContent=texts[index];
+}
+
+function nextSlide(){index=(index+1)%slides.length;updateSlider()}
+function prevSlide(){index=(index-1+slides.length)%slides.length;updateSlider()}
+function goToSlide(i){index=i;updateSlider()}
+
+updateSlider();
+setInterval(nextSlide,2000);
+
+</script>
+
 </body>
 </html>
